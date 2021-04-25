@@ -61,7 +61,6 @@ int main() {
   int iNoOfPeople = getNoOfPeople();
   float fCostOfParty = getTotalCost();
   int iNoOfBackOut = getNumBackOut();
-  float fRecomputed;
 
   if (isValidInput(iNoOfPeople, iNoOfBackOut, fCostOfParty)) {
     float fContribution = computeContribution(fCostOfParty, iNoOfPeople);
