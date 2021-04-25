@@ -25,38 +25,35 @@ int getNumBackOut(void) {
   return iNoOfBackOut;
 }
 
-bool isInvalidInput(int iNoOfPeople, int iNoOfBackOut, float fCostOfParty) {
-  bool valid = false;
+bool isValidInput(int iNoOfPeople, int iNoOfBackOut, float fCostOfParty) {
+  bool valid = true;
 
-  if (iNoOfPeople == 0 || iNoOfPeople < 0) {
-    valid = true;
+  if (iNoOfPeople <= 0) {
+    valid = false;
   }
-  if (fCostOfParty == 0 || fCostOfParty < 0) {
-    valid = true;
+  if (fCostOfParty <= 0) {
+    valid = false;
   }
   if (iNoOfBackOut > iNoOfPeople) {
-    valid = true;
+    valid = false;
   }
   return valid;
 }
 
 float computeContribution(float fCostOfParty, int iNoOfPeople) {
-  float fContribution;
-
-  fContribution = fCostOfParty / iNoOfPeople;
+  float fContribution = fCostOfParty / iNoOfPeople;
   printf("\n\nOriginal contribution per person: %.2f", fContribution);
   return fContribution;
 }
 
 float computeAddedCont(float fContribution, int iNoOfBackOut, int iNoOfPeople) {
-  float fAddedCont;
-  fAddedCont = fContribution * iNoOfBackOut / (iNoOfPeople - iNoOfBackOut);
+  float fAddedCont =
+      fContribution * iNoOfBackOut / (iNoOfPeople - iNoOfBackOut);
   return fAddedCont;
 }
 
 float computeRecomp(float fContribution, float fAddedCont) {
-  float fRecomputed;
-  fRecomputed = fContribution + fAddedCont;
+  float fRecomputed = fContribution + fAddedCont;
   return fRecomputed;
 }
 
@@ -66,9 +63,7 @@ int main() {
   int iNoOfBackOut = getNumBackOut();
   float fRecomputed;
 
-  if (isInvalidInput(iNoOfPeople, iNoOfBackOut, fCostOfParty)) {
-    printf("\n\nINVALID INPUT!");
-  } else {
+  if (isValidInput(iNoOfPeople, iNoOfBackOut, fCostOfParty)) {
     float fContribution = computeContribution(fCostOfParty, iNoOfPeople);
     float fAddedCont =
         computeAddedCont(fContribution, iNoOfBackOut, iNoOfPeople);
@@ -87,6 +82,8 @@ int main() {
     } else {
       printf("\nRecomputed contribution per person: 0.00");
     }
+  } else {
+    printf("\n\nINVALID INPUT!");
   }
   return 0;
 }
